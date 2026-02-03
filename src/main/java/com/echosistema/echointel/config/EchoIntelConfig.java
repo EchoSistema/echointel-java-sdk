@@ -26,7 +26,7 @@ public class EchoIntelConfig {
     private int retryDelay = Defaults.RETRY_DELAY;
 
     public static final class Defaults {
-        public static final String BASE_URL = "https://ai.echosistema.live";
+        public static final String BASE_URL = "https://ai.echosistema.dev";
         public static final int TIMEOUT = 30;
         public static final int RETRY_ATTEMPTS = 3;
         public static final int RETRY_DELAY = 100;

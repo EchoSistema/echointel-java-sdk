@@ -31,7 +31,7 @@ public class Example {
     public static void main(String[] args) {
         // Create client using builder pattern
         EchoIntelClient client = EchoIntelClient.builder()
-                .baseUrl("https://ai.echosistema.live")
+                .baseUrl("https://ai.echosistema.dev")
                 .customerApiId("your-customer-id")
                 .secret("your-secret")
                 .adminSecret("your-admin-secret")  // optional
@@ -60,7 +60,7 @@ public class Example {
 
 ```java
 EchoIntelClient client = EchoIntelClient.builder()
-        .baseUrl("https://ai.echosistema.live")  // Default
+        .baseUrl("https://ai.echosistema.dev")  // Default
         .customerApiId("your-customer-id")
         .secret("your-secret")
         .adminSecret("your-admin-secret")
@@ -76,7 +76,7 @@ EchoIntelClient client = EchoIntelClient.builder()
 import com.echosistema.echointel.config.EchoIntelConfig;
 
 EchoIntelConfig config = EchoIntelConfig.builder()
-        .baseUrl("https://ai.echosistema.live")
+        .baseUrl("https://ai.echosistema.dev")
         .customerApiId("your-customer-id")
         .secret("your-secret")
         .build();

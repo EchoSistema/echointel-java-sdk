@@ -318,6 +318,67 @@ public class EchoIntelClient {
     }
 
     // =========================================================================
+    // ASYNC ML JOBS
+    // =========================================================================
+
+    public Map<String, Object> listJobs() {
+        return listJobs(null, null, null);
+    }
+
+    public Map<String, Object> listJobs(String customerApiId, String status, Integer limit) {
+        StringBuilder query = new StringBuilder();
+        List<String> params = new ArrayList<>();
+        if (customerApiId != null) params.add("customer_api_id=" + customerApiId);
+        if (status != null) params.add("status=" + status);
+        if (limit != null) params.add("limit=" + limit);
+        if (!params.isEmpty()) query.append("?").append(String.join("&", params));
+        return request("GET", Endpoints.JOBS + query, null, false);
+    }
+
+    public Map<String, Object> getJobStatus(String jobId) {
+        return request("GET", Endpoints.JOBS + "/" + jobId + "/status", null, false);
+    }
+
+    public Map<String, Object> getJobResult(String jobId) {
+        return request("GET", Endpoints.JOBS + "/" + jobId + "/result", null, false);
+    }
+
+    // =========================================================================
+    // DEAD LETTER QUEUE
+    // =========================================================================
+
+    public Map<String, Object> listDlqMessages() {
+        return listDlqMessages(null, null);
+    }
+
+    public Map<String, Object> listDlqMessages(String queueName, Integer limit) {
+        StringBuilder query = new StringBuilder();
+        List<String> params = new ArrayList<>();
+        if (queueName != null) params.add("queue_name=" + queueName);
+        if (limit != null) params.add("limit=" + limit);
+        if (!params.isEmpty()) query.append("?").append(String.join("&", params));
+        return requestAdmin("GET", Endpoints.DLQ_MESSAGES + query, null);
+    }
+
+    public Map<String, Object> retryDlqMessage(String jobId) {
+        return retryDlqMessage(jobId, null);
+    }
+
+    public Map<String, Object> retryDlqMessage(String jobId, String queueName) {
+        String query = queueName != null ? "?queue_name=" + queueName : "";
+        return requestAdmin("POST", Endpoints.DLQ_RETRY + "/" + jobId + query, null);
+    }
+
+    public Map<String, Object> deleteDlqMessage(String jobId) {
+        return deleteDlqMessage(jobId, null);
+    }
+
+    public Map<String, Object> deleteDlqMessage(String jobId, String queueName) {
+        String query = queueName != null ? "?queue_name=" + queueName : "";
+        return requestAdmin("DELETE", Endpoints.DLQ_MESSAGES + "/" + jobId + query, null);
+    }
+
+    // =========================================================================
     // ADMIN OPERATIONS
     // =========================================================================
 
